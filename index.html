@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- font awesome -->
+  <script src="https://kit.fontawesome.com/764892ac1a.js" crossorigin="anonymous"></script>
+  <!-- google fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/normalize.css">
+  <link rel="stylesheet" href="./styles/styles.css">
+  <title>To-Do List</title>
+  <script src="./scripts/jQuery.js"></script>
+  <script src="./scripts/main.js" defer></script>
+</head>
+<body>
+  <div class="to-do">
+    <div class="container">
+      <div class="content">
+        <div class="wrapper">
+          
+          <div class="header"><h1>Todo List</h1></div>
+          <div class="todo-components">
+            <!-- search component -->
+            <div class="search-task">
+              <i></i>
+              <input type="text" name="search" id="searchTask" placeholder="Search for a todo">
+            </div>
+            <!-- tasks -->
+            <div class="tasks">
+              <div class="unfinished_tasks">
+                <div class="task">
+                  <div class="task-options">
+                    <!-- <div id="isChecked"><i class="fa-solid fa-circle-check"></i></div> -->
+                    <div id="isChecked" class="edit_button"><i class="fa-regular fa-circle"></i></div>
+                    <div class="trash edit_button"><i class="fa-regular fa-trash-can"></i></div>
+
+                  </div>
+                  <div class="task_det">
+                    <h4 class="task-head">Task Head</h4>
+                    <p class="description">Lorem,  elit. Possimus necessitatibus cumque officiis maxime reprehenderit ratione veritatis quas, maiores laudantium distinctio voluptates, labore obcaecati quia. Voluptas aliquam deserunt architecto voluptatibus! Cupiditate.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="finished_tasks_sec">
+                <div class="finished-head">
+                  <h4>Finished Tasks</h4>
+                </div>
+
+                <div class="finished_tasks">
+                  <div class="task">
+                    <div class="task-options">
+                      <!-- <div id="isChecked"><i class="fa-solid fa-circle-check"></i></div> -->
+                      <div id="isChecked" class="edit_button"><i class="fa-regular fa-circle"></i></div>
+                      <div class="trash edit_button"><i class="fa-regular fa-trash-can"></i></div>
+                    </div>
+                    <div class="task_det">
+                      <h4 class="task-head">Task Head</h4>
+                      <p class="description">Lorem,  elit. Possimus necessitatibus cumque officiis maxime reprehenderit ratione veritatis quas, maiores laudantium distinctio voluptates, labore obcaecati quia. Voluptas aliquam deserunt architecto voluptatibus! Cupiditate.</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <!-- add task -->
+            <div class="add-task">
+              <input type="text" name="add" id="addTask" placeholder="Create a new todo...">
+              <div class="set_options">
+                <i class="fa-regular fa-circle"></i>
+                <i class="fa-regular fa-circle"></i>
+                <i class="fa-regular fa-circle"></i>
+                <i class="fa-regular fa-circle"></i>
+                <i class="fa-regular fa-circle"></i>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
