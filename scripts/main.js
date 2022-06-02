@@ -1,12 +1,12 @@
 
 class Task {
-  constructor(id, title, description, point) {
-    id = this.id,
-    title = this.title,
-    description = this.description,
-    point = this.point,
-    isDone = false,
-    createdAt = new Date()
+  constructor(id, title, description, points) {
+    this.id = id,
+    this.title = title,
+    this.description = description,
+    this.points = points,
+    this.isDone = false,
+    this.createdAt = new Date()
   }
 }
 
@@ -15,14 +15,27 @@ $("#addTask").focus(activeAddTask)
 $("#addTask").focusout(unActiveAddTask)
 
 
+$(".set_options i").each(function(index) {
+  $(this).click(() => {
+    
+    $(this).parent().attr("data-rate", index +1)
+    $(".set_options i").each(function(i) {
+      if (i <= index) {
+        $(this).addClass("important fa-solid").removeClass("fa-regular")
+      }
+      else {
+        $(this).addClass("fa-regular").removeClass("important fa-solid")
+      }
+    })
+  })
+})
+
+// functions
 
 function activeAddTask() {
 
   $(this).attr("placeholder", "Add task title")
-
-  // $(document).keydown(addHeader)
   $(document).bind("keydown", addHeader)
-
 }
 
 function addHeader(e) {
@@ -43,9 +56,12 @@ function addHeader(e) {
   }
 }
 
+
 function addDescription(ev) {
   if (ev.key === "Enter" && $("#addTask").val()) {
-    var newTask = $(`<div class="task">
+    var id =checkID()
+
+    var newTask = $(`<div class="task" id="${id}">
     <div class="task-options">
       <div id="isChecked" class="edit_button"><i class="fa-regular fa-circle"></i></div>
       <div class="trash edit_button"><i class="fa-regular fa-trash-can"></i></div>
@@ -56,11 +72,16 @@ function addDescription(ev) {
     </div>
   </div>`)
 
+
     $(".unfinished_tasks").append(newTask)
+    var task = new Task(3, ev.data.headerInfo,$("#addTask").val(), parseInt($(".set_options").attr("data-rate")))
+
+    localStorage.setItem(id, JSON.stringify(task))
+
+    console.log(task)
     $("#addTask").val("").attr("placeholder", "Add task title")
     $(".new_task_head").remove()
 
-    // $("body").off("keydown", $(document), addDescription)
     $(document).off()
     $(document).bind("keydown", addHeader)
   }
@@ -68,5 +89,19 @@ function addDescription(ev) {
 
 
 function unActiveAddTask() {
-  // console.log("unfocused")
+  $(this).attr("placeholder", "Create a new todo...")
+}
+
+// function generates unique ID 
+function checkID() {
+
+  task_id = Math.floor(Math.random() * 1000)
+
+  $(".task").each(function() {
+
+    if ($(this).attr("id") == task_id) {
+      return checkID()
+    }
+  })
+  return task_id
 }
