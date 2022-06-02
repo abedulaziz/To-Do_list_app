@@ -11,7 +11,6 @@ class Task {
 }
 
 // return tasks form local storage
-let retrieved_tasks = []
 for (let i =0; i< 100; i++) {
   let el = localStorage.getItem(i)
   
@@ -28,7 +27,7 @@ for (let i =0; i< 100; i++) {
       <p class="description">${parsedEl.description}</p>
     </div>
   </div>`)
-
+    
     if (parsedEl.isDone) $(".finished_tasks").append(newTask)
     else $(".unfinished_tasks").append(newTask)
   }
@@ -74,6 +73,8 @@ $(".unfinished_tasks, .finished_tasks").click(function(ev) {
   }
 })
 
+
+$("#tasksOrder").on("change", sortByTime)
 
 
 // functions
@@ -159,24 +160,27 @@ function generateID() {
 }
 
 
-
-
-let arr = []
-for (let i = 0; i < 100; i++) {
-  let el = localStorage.getItem(i)
-  if (el) {
-    arr.push($("#" +i))
-    console.log($("#" +1))
-  }
+function sortByTime(e) {
   
-} 
+  if (this.value == "by-date") {
+    var sortedByTime = insertionSort($(".unfinished_tasks .task"))
+    for (let j = 0; j < sortedByTime.length; j++) {
+      
+      $(".unfinished_tasks").append(sortedByTime[j])
+    }
+  }
+  else {
+    
+  }
+}
 
-console.log(arr)
 
 
 
+console.log($(".unfinished_tasks .task").length)
 
-console.log($(".task"))
+// let haha = JSON.parse(localStorage.getItem()).createdAt
+
 // 545:"{"id":545,"title":"asdkfksdf","description":"sdf","points":1,"isDone":false,"createdAt":"2022-06-02T17:23:39.012Z"}"
 // insertion sort
 function insertionSort(inputArr) {
@@ -186,11 +190,12 @@ function insertionSort(inputArr) {
           let current = inputArr[i];
           // The last element of our sorted subarray
           let j = i-1; 
-          while ((j > -1) && (current < inputArr[j])) {
-              inputArr[j+1] = inputArr[j];
+          while ((j > -1) && (JSON.parse(localStorage.getItem(current.id)).createdAt > JSON.parse(localStorage.getItem(inputArr[j].id)).createdAt)) {
+            inputArr[j+1] = inputArr[j];
               j--;
           }
           inputArr[j+1] = current;
       }
+      console.log(inputArr);
   return inputArr;
 }
