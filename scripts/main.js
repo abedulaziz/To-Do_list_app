@@ -30,6 +30,14 @@ $(".set_options i").each(function(index) {
   })
 })
 
+$(".unfinished_tasks, .finished_tasks").click(function(ev) {
+  if ($(ev.target).is(".trash .fa-trash-can")) {
+    
+    var parent = $(this).closest(".task")
+    console.log(parent)
+  }
+})
+
 // functions
 
 function activeAddTask() {
@@ -59,11 +67,11 @@ function addHeader(e) {
 
 function addDescription(ev) {
   if (ev.key === "Enter" && $("#addTask").val()) {
-    var id =checkID()
+    var id =generateID()
 
-    var newTask = $(`<div class="task" id="${id}">
+    var newTask = $(`<div class="task" id="${id}" data-points="${parseInt($(".set_options").attr("data-rate"))}" data-isDone="false">
     <div class="task-options">
-      <div id="isChecked" class="edit_button"><i class="fa-regular fa-circle"></i></div>
+      <div data-check="isChecked" class="edit_button"><i class="fa-regular fa-circle"></i></div>
       <div class="trash edit_button"><i class="fa-regular fa-trash-can"></i></div>
     </div>
     <div class="task_det">
@@ -75,6 +83,11 @@ function addDescription(ev) {
 
     $(".unfinished_tasks").append(newTask)
     var task = new Task(3, ev.data.headerInfo,$("#addTask").val(), parseInt($(".set_options").attr("data-rate")))
+
+    $(".set_options").attr("data-rate", "1")
+    $(".set_options i").each(function() {
+      $(this).addClass("fa-regular").removeClass("important fa-solid")
+    })
 
     localStorage.setItem(id, JSON.stringify(task))
 
@@ -93,14 +106,14 @@ function unActiveAddTask() {
 }
 
 // function generates unique ID 
-function checkID() {
+function generateID() {
 
   task_id = Math.floor(Math.random() * 1000)
 
   $(".task").each(function() {
 
     if ($(this).attr("id") == task_id) {
-      return checkID()
+      return generateID()
     }
   })
   return task_id
