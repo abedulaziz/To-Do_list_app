@@ -10,6 +10,30 @@ class Task {
   }
 }
 
+// return tasks form local storage
+let retrieved_tasks = []
+for (let i =0; i< 100; i++) {
+  let el = localStorage.getItem(i)
+  
+  if (el) {
+    parsedEl = JSON.parse(el)
+    let newTask = $(`<div class="task" id="${parsedEl.id}" data-points="${parsedEl.points}" data-isDone=${parsedEl.isDone}>
+    <div class="task-options">
+      <div class="finish_task edit_button"><i class="${parsedEl.isDone ? "fa-solid fa-check":"fa-regular fa-circle"}"></i></div>
+      <div class="trash edit_button"><i class="fa-regular fa-trash-can"></i></div>
+      <div class="rate"><span class="rate_num">${parsedEl.points}</span><i class="fa-solid fa-star"></i></div>
+    </div>
+    <div class="task_det">
+      <h4 class="task-head">${parsedEl.title}</h4>
+      <p class="description">${parsedEl.description}</p>
+    </div>
+  </div>`)
+
+    if (parsedEl.isDone) $(".finished_tasks").append(newTask)
+    else $(".unfinished_tasks").append(newTask)
+  }
+}
+
 
 $("#addTask").focus(activeAddTask)
 $("#addTask").focusout(unActiveAddTask)
@@ -123,7 +147,7 @@ function unActiveAddTask() {
 // function generates unique ID 
 function generateID() {
 
-  task_id = Math.floor(Math.random() * 1000)
+  task_id = Math.floor(Math.random() * 100)
 
   $(".task").each(function() {
 
@@ -132,4 +156,41 @@ function generateID() {
     }
   })
   return task_id
+}
+
+
+
+
+let arr = []
+for (let i = 0; i < 100; i++) {
+  let el = localStorage.getItem(i)
+  if (el) {
+    arr.push($("#" +i))
+    console.log($("#" +1))
+  }
+  
+} 
+
+console.log(arr)
+
+
+
+
+console.log($(".task"))
+// 545:"{"id":545,"title":"asdkfksdf","description":"sdf","points":1,"isDone":false,"createdAt":"2022-06-02T17:23:39.012Z"}"
+// insertion sort
+function insertionSort(inputArr) {
+  let n = inputArr.length;
+      for (let i = 1; i < n; i++) {
+          // Choosing the first element in our unsorted subarray
+          let current = inputArr[i];
+          // The last element of our sorted subarray
+          let j = i-1; 
+          while ((j > -1) && (current < inputArr[j])) {
+              inputArr[j+1] = inputArr[j];
+              j--;
+          }
+          inputArr[j+1] = current;
+      }
+  return inputArr;
 }
