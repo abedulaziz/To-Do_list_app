@@ -39,9 +39,12 @@ $(".unfinished_tasks, .finished_tasks").click(function(ev) {
     parent.remove()
   }
   else if($(ev.target).is(".fa-circle")) {
-    console.log(ev.target);
+
     var parent = $(ev.target).closest(".task")
     $(ev.target).addClass("fa-solid fa-check").removeClass("fa-regular fa-circle")
+    parent.attr("isdone", "true")
+
+    localStorage.setItem(parent[0].id, localStorage.getItem(parent[0].id).replace(`"isDone":false`, `"isDone":true`))
 
     $(".finished_tasks").append(parent)
   }
@@ -84,6 +87,7 @@ function addDescription(ev) {
     <div class="task-options">
       <div class="finish_task edit_button"><i class="fa-regular fa-circle"></i></div>
       <div class="trash edit_button"><i class="fa-regular fa-trash-can"></i></div>
+      <div class="rate"><span class="rate_num">${parseInt($(".set_options").attr("data-rate"))}</span><i class="fa-solid fa-star"></i></div>
     </div>
     <div class="task_det">
       <h4 class="task-head">${ev.data.headerInfo}</h4>

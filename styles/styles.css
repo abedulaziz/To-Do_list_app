@@ -84,6 +84,16 @@ input[name="search"]::placeholder {
   margin-bottom: 10px;
 }
 
+.fa-trash-can:hover {
+  color: red
+}
+
+.to-do .content .todo-components .tasks .task .rate i{
+  font-size: 10px;
+  display: inline;
+  color: gold;
+}
+
 .to-do .content .todo-components .tasks .task .task-head {
   font-size: 22px;
 }
