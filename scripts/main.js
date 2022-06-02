@@ -160,7 +160,7 @@ function generateID() {
 }
 
 
-function sortByTime(e) {
+function sortByTime() {
   
   if (this.value == "by-date") {
     var sortedByTime = insertionSort($(".unfinished_tasks .task"))
@@ -168,21 +168,25 @@ function sortByTime(e) {
       
       $(".unfinished_tasks").append(sortedByTime[j])
     }
+    var FinishedSortedByTime = insertionSort($(".finished_tasks .task"))
+    for (let j = 0; j < FinishedSortedByTime.length; j++) {
+      
+      $(".finished_tasks").append(FinishedSortedByTime[j])
+    }
   }
   else {
-    
+    var sortedByPoints = insertionSortByPoints($(".unfinished_tasks .task"))
+
+    for (let j = 0; j < sortedByPoints.length; j++) {
+      
+      $(".unfinished_tasks").append(sortedByPoints[j])
+    }
   }
 }
 
 
 
-
-console.log($(".unfinished_tasks .task").length)
-
-// let haha = JSON.parse(localStorage.getItem()).createdAt
-
-// 545:"{"id":545,"title":"asdkfksdf","description":"sdf","points":1,"isDone":false,"createdAt":"2022-06-02T17:23:39.012Z"}"
-// insertion sort
+// insertion sort by date
 function insertionSort(inputArr) {
   let n = inputArr.length;
       for (let i = 1; i < n; i++) {
@@ -191,6 +195,25 @@ function insertionSort(inputArr) {
           // The last element of our sorted subarray
           let j = i-1; 
           while ((j > -1) && (JSON.parse(localStorage.getItem(current.id)).createdAt > JSON.parse(localStorage.getItem(inputArr[j].id)).createdAt)) {
+            inputArr[j+1] = inputArr[j];
+              j--;
+          }
+          inputArr[j+1] = current;
+      }
+      console.log(inputArr);
+  return inputArr;
+}
+
+// insertions sort by points
+function insertionSortByPoints(inputArr) {
+  let n = inputArr.length;
+      for (let i = 1; i < n; i++) {
+          // Choosing the first element in our unsorted subarray
+          let current = inputArr[i];
+          // The last element of our sorted subarray
+          let j = i-1; 
+          console.log( $(inputArr[i]).attr("data-points"))
+          while ((j > -1) && ($(current).attr("data-points") > $(inputArr[i]).attr("data-points"))) {
             inputArr[j+1] = inputArr[j];
               j--;
           }
