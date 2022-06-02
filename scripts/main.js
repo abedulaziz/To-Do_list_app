@@ -30,13 +30,24 @@ $(".set_options i").each(function(index) {
   })
 })
 
+// trash on click
 $(".unfinished_tasks, .finished_tasks").click(function(ev) {
-  if ($(ev.target).is(".trash .fa-trash-can")) {
+  if ($(ev.target).is(".fa-trash-can")) {
     
-    var parent = $(this).closest(".task")
-    console.log(parent)
+    var parent = $(ev.target).closest(".task")
+    localStorage.removeItem(parent[0].id)
+    parent.remove()
+  }
+  else if($(ev.target).is(".fa-circle")) {
+    console.log(ev.target);
+    var parent = $(ev.target).closest(".task")
+    $(ev.target).addClass("fa-solid fa-check").removeClass("fa-regular fa-circle")
+
+    $(".finished_tasks").append(parent)
   }
 })
+
+
 
 // functions
 
@@ -71,7 +82,7 @@ function addDescription(ev) {
 
     var newTask = $(`<div class="task" id="${id}" data-points="${parseInt($(".set_options").attr("data-rate"))}" data-isDone="false">
     <div class="task-options">
-      <div data-check="isChecked" class="edit_button"><i class="fa-regular fa-circle"></i></div>
+      <div class="finish_task edit_button"><i class="fa-regular fa-circle"></i></div>
       <div class="trash edit_button"><i class="fa-regular fa-trash-can"></i></div>
     </div>
     <div class="task_det">
@@ -82,7 +93,7 @@ function addDescription(ev) {
 
 
     $(".unfinished_tasks").append(newTask)
-    var task = new Task(3, ev.data.headerInfo,$("#addTask").val(), parseInt($(".set_options").attr("data-rate")))
+    var task = new Task(id, ev.data.headerInfo, $("#addTask").val(), parseInt($(".set_options").attr("data-rate")))
 
     $(".set_options").attr("data-rate", "1")
     $(".set_options i").each(function() {
